@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  background-color: #0d0d1a;
+  color: #00ffee;
+  font-family: 'Press Start 2P', monospace;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: #00ffee;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.top-bar {
+  background-color: #001122;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-bottom: 2px solid #00ffee;
+}
+
+.logo {
+  font-size: 18px;
+  color: #00ffee;
+}
+
+
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #33faff;
+  text-shadow: 0 0 5px #00ffee;
+  text-align: center;
+}
+
+.footer {
+  background-color: #001122;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+  border-top: 2px solid #00ffee;
+}
+
+.nav a {
+  font-size: 10px;
+  transition: transform 0.2s ease-in-out;
+  display: inline-block;
+}
+
+.nav a:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 5px #00ffee;
+}
+
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 10px;
+  background-color: #000c1a;
+  border: 2px solid #00ffee;
+  color: #00ffee;
+  outline: none;
+  width: 300px;
+}
+
+.search-button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 10px 15px;
+  background-color: #001122;
+  color: #00ffee;
+  border: 2px solid #00ffee;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.search-button:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 5px #00ffee;
+}
+
+
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: #111;
+  color: #00ffff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #00ffff; /* Чтобы отделялся тонкой бирюзовой линией */
+   z-index: 2;
+}
+

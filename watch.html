@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Смотреть — Endlad Кинотеатр</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .movie-info {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .movie-poster {
+      width: 200px;
+      height: auto;
+      border: 2px solid #00ffee;
+    }
+
+    .movie-details {
+      max-width: 600px;
+      color: #00ffee;
+    }
+
+    .movie-details h2 {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border: 2px solid #00ffee;
+	   z-index: 9999;
+    }
+	
+  </style>
+  
+</head>
+<body>
+  <div class="top-bar">
+    <div class="logo">Endlad</div>
+    <div class="nav">
+      <a href="tv.html">ТВ</a>
+      <a href="search.html">Поиск</a>
+      <a href="index.html">Главная</a>
+      <a href="catalog.html">Каталог</a>
+    </div>
+  </div>
+
+  <div class="main-content">
+  
+    <div id="movieContainer">Загрузка...</div>
+  </div>
+
+  <div class="footer">
+    <p>© Endlad, с 2024</p>
+    <a href="authorrights.html">Правообладателям</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+      document.getElementById("movieContainer").innerText = "Фильм не найден.";
+    } else {
+      fetch(`https://api.kinopoisk.dev/v1.3/movie/${id}?token=R0A3DPM-1SA4D95-Q22H366-4AQ9DVC`)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById("movieContainer");
+
+          const poster = data.poster?.url || "";
+          const name = data.name || "Без названия";
+          const year = data.year || "";
+          const rating = data.rating?.kp || "Нет рейтинга";
+          const description = data.description || "Описание отсутствует";
+
+          container.innerHTML = `
+            <div class="movie-info">
+              <img class="movie-poster" src="${poster}" alt="${name}">
+              <div class="movie-details">
+                <h2>${name} (${year})</h2>
+                <p><strong>Рейтинг: 🏆</strong> ${rating}</p>
+                <p>${description}</p>
+              </div>
+            </div>
+			<h1 style="color:#00ffee; font-size: 12px; text-align:center; margin-bottom: 20px;">
+  🎬 Просмотр фильма
+</h1>
+
+            <iframe 
+  src="https://kinovibe.co/embed/kinopoisk/${id}" 
+  allowfullscreen 
+  style="border-radius: 12px; box-shadow: 0 0 25px #00ffee;">
+</iframe>
+
+          `;
+        })
+        .catch(err => {
+          document.getElementById("movieContainer").innerText = "Ошибка загрузки фильма.";
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>

@@ -115,3 +115,32 @@ form {
    z-index: 2;
 }
 
+
+.token-button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 10px 15px;
+  background-color: #001122;
+  color: #00ffee;
+  border: 2px solid #00ffee;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.token-button:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 5px #00ffee;
+}
+
+.token-input {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 10px;
+  background-color: #000c1a;
+  border: 2px solid #00ffee;
+  color: #00ffee;
+  outline: none;
+  width: 300px;
+}
+
+

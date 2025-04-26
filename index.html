@@ -24,6 +24,25 @@
   <div class="footer">
     <p>© Endlad, с 2024</p>
     <a href="authorrights.html">Правообладателям</a>
+
+  <div style="margin-top: 10px;">
+    <input id="tokenInput" type="text" placeholder="Введите токен" class="text-input">
+    <button onclick="saveToken()" class="token-button">Сохранить токен</button>
+  </div>
+</div>
+
+<script>
+function saveToken() {
+  const token = document.getElementById('tokenInput').value.trim();
+  if (token) {
+    localStorage.setItem('userToken', token);
+    alert('Токен сохранён!');
+  } else {
+    alert('Введите токен!');
+  }
+}
+</script>
   </div>
 </body>
 </html>
+

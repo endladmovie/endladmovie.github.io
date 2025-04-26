@@ -62,13 +62,15 @@
   </div>
 
   <script>
+  const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get('token');
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
     if (!id) {
       document.getElementById("movieContainer").innerText = "Фильм не найден.";
     } else {
-      fetch(`https://api.kinopoisk.dev/v1.3/movie/${id}?token=R0A3DPM-1SA4D95-Q22H366-4AQ9DVC`)
+      fetch(`https://api.kinopoisk.dev/v1.3/movie/${id}?token=${token}`)
         .then(res => res.json())
         .then(data => {
           const container = document.getElementById("movieContainer");

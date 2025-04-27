@@ -99,6 +99,25 @@ form {
   text-shadow: 0 0 5px #00ffee;
 }
 
+.token-button {
+	
+	  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  padding: 10px 15px;
+  background-color: #001122;
+  color: #00ffee;
+  border: 2px solid #00ffee;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+	
+}
+
+
+.token-button:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 5px #00ffee;
+}
+
 
 .footer {
   width: 100%;
@@ -115,24 +134,7 @@ form {
    z-index: 2;
 }
 
-
-.token-button {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
-  padding: 10px 15px;
-  background-color: #001122;
-  color: #00ffee;
-  border: 2px solid #00ffee;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-.token-button:hover {
-  transform: scale(1.2);
-  text-shadow: 0 0 5px #00ffee;
-}
-
-.token-input {
+.text-input {
   font-family: 'Press Start 2P', monospace;
   font-size: 10px;
   padding: 10px;
@@ -142,5 +144,3 @@ form {
   outline: none;
   width: 300px;
 }
-
-

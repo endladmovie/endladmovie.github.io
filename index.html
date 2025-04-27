@@ -26,10 +26,20 @@
     <a href="authorrights.html">Правообладателям</a>
 
   <div style="margin-top: 10px;">
-    <input id="tokenInput" type="text" placeholder="Введите токен" class="token-input">
+    <input id="tokenInput" type="text" placeholder="Введите токен" class="text-input">
     <button onclick="saveToken()" class="token-button">Сохранить токен</button>
   </div>
 </div>
+
+<div id="telegram-login-container" style="text-align: center; margin-top: 20px;">
+  <script async src="https://telegram.org/js/telegram-widget.js?22"
+    data-telegram-login="endladmovie_kinobot" 
+    data-size="large"
+    data-userpic="false"
+    data-onauth="onTelegramAuth"
+    data-request-access="write"></script>
+</div>
+
 
 <script>
 function saveToken() {

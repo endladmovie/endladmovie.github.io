@@ -5,13 +5,26 @@
   <title>Endlad Кинотеатр</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
   <div class="top-bar">
     <div class="logo">Endlad</div>
-	<div class="user" id="user"> Guest</div>
-	
-	
+    <div class="user" id="user">
+      <span>Guest</span>
+    </div>
     <div class="nav">
       <a href="tv.html">ТВ</a>
       <a href="search.html">Поиск</a>
@@ -25,37 +38,73 @@
   </div>
 
   <div class="footer">
-  <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="endladmovie_kinobot" data-size="medium" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
-<script type="text/javascript">
-	const userElement = document.querySelector(".user");
-  function onTelegramAuth(user) {
-    alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-	userElement.textContent = user.first_name + " " + user.last_name;
-  }
-</script>
+    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="endladmovie_kinobot" data-size="medium" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
     <p>© Endlad, 2024-2025 Все права защищены</p>
     <a href="authorrights.html">Правообладателям</a>
 
-  <div style="margin-top: 10px;">
-    <input id="tokenInput" type="text" placeholder="Введите токен" class="text-input">
-    <button onclick="saveToken()" class="token-button">Сохранить токен</button>
+    <div style="margin-top: 10px;">
+      <input id="tokenInput" type="text" placeholder="Введите токен" class="text-input">
+      <button onclick="saveToken()" class="token-button">Сохранить токен</button>
+    </div>
   </div>
-</div>
 
+  <script>
+    // Замените на ваш токен бота, полученный от @BotFather
+    const BOT_TOKEN = '7925717248:AAF0uFhfVXAhJVnadk5KD5ySRWV9L5CIBag';
 
+    document.addEventListener("DOMContentLoaded", () => {
+      const userElement = document.getElementById("user");
 
+      async function onTelegramAuth(user) {
+        // Отображаем имя пользователя
+        const userName = `${user.first_name} ${user.last_name || ''}`;
+        userElement.innerHTML = `<span>${userName}</span>`;
 
-<script>
-function saveToken() {
-  const token = document.getElementById('tokenInput').value.trim();
-  if (token) {
-    localStorage.setItem('userToken', token);
-    alert('Токен сохранён!');
-  } else {
-    alert('Введите токен!');
-  }
-}
-</script>
-  </div>
+        // Получаем фотографии профиля
+        try {
+          const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUserProfilePhotos?user_id=${user.id}`);
+          const data = await response.json();
+
+          if (data.ok && data.result.photos.length > 0) {
+            // Берём первую фотографию (самую последнюю) в наибольшем размере
+            const fileId = data.result.photos[0][data.result.photos[0].length - 1].file_id;
+
+            // Получаем путь к файлу
+            const fileResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`);
+            const fileData = await fileResponse.json();
+
+            if (fileData.ok) {
+              const filePath = fileData.result.file_path;
+              const photoUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${filePath}`;
+
+              // Обновляем HTML, добавляя изображение
+              userElement.innerHTML = `<img src="${photoUrl}" alt="Profile Photo"><span>${userName}</span>`;
+            } else {
+              console.error('Ошибка при получении файла:', fileData);
+            }
+          } else {
+            console.log('Фотографии профиля отсутствуют или недоступны');
+            // Можно добавить заглушку, например:
+            // userElement.innerHTML = `<img src="default-avatar.png" alt="No Photo"><span>${userName}</span>`;
+          }
+        } catch (error) {
+          console.error('Ошибка при получении фотографии:', error);
+        }
+      }
+
+      function saveToken() {
+        const token = document.getElementById("tokenInput").value.trim();
+        if (token) {
+          localStorage.setItem("userToken", token);
+          alert("Токен сохранён!");
+        } else {
+          alert("Введите токен!");
+        }
+      }
+
+      // Экспортируем функцию для Telegram Login
+      window.onTelegramAuth = onTelegramAuth;
+    });
+  </script>
 </body>
 </html>

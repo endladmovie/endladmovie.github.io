@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Перенаправление на фильм</title>
+  <script>
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      const kp_id = params.get('kp_id');
+      const token = localStorage.getItem('userToken');
+
+      if (!kp_id) {
+        document.body.textContent = 'Ошибка: параметр kp_id не указан.';
+        return;
+      }
+
+      if (!token) {
+        document.body.textContent = 'Ошибка: токен не найден в localStorage.';
+        return;
+      }
+
+      const redirectUrl = `watch.html?id=${encodeURIComponent(kp_id)}&token=${encodeURIComponent(token)}`;
+      window.location.href = redirectUrl;
+    };
+  </script>
+</head>
+<body>
+  <p>Перенаправление на фильм...</p>
+</body>
+</html>
